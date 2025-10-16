@@ -2,6 +2,7 @@ let allData = [];
 let ejiData = []; 
 let filteredData = [];
 let hotspotsData = [];
+let searchFilteredData = [];
 let currentPage = 1;
 const ITEMS_PER_PAGE = 100;
 
@@ -347,15 +348,6 @@ function displayDataTable(data, page = 1) {
     html += '</div>';
     container.innerHTML = html;
 }
-
-function changePage(newPage) {
-    currentPage = newPage;
-    displayDataTable(filteredData, currentPage);
-    
-    document.getElementById('dataTable').scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
-
-let searchFilteredData = [];
 
 function filterTable() {
     const searchTerm = document.getElementById('searchBox').value.toLowerCase();
