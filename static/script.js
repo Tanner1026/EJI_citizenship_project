@@ -74,7 +74,7 @@ async function loadHotspots() {
 async function updateVisualization() {
     const mapType = document.getElementById('mapType').value;
     
-    let dataToUse, values, colorscale, title, legendDesc;
+    let dataToUse, values, colorscale, title;
     
     switch(mapType) {
         case 'eji':
@@ -91,7 +91,6 @@ async function updateVisualization() {
                 [1, 'rgb(227, 26, 28)']        
             ];
             title = 'Environmental Justice Index (Percentile)';
-            legendDesc = 'Red = Higher environmental justice concerns (worse). Yellow = Lower concerns (better). Showing ALL counties with EJI data.';
             break;
         case 'aqi':
             dataToUse = filteredData;
@@ -104,7 +103,6 @@ async function updateVisualization() {
                 [1, 'rgb(204, 0, 0)']           // 100+ AQI - Dark Red (Unhealthy)
             ];
             title = 'Air Quality Index (Median AQI)';
-            legendDesc = 'Red = Worse air quality (higher AQI). Green = Better air quality (lower AQI). Only showing counties with AQI monitoring stations.';
             break;
         case 'combined':
             dataToUse = filteredData;
@@ -115,11 +113,8 @@ async function updateVisualization() {
             });
             colorscale = 'Reds';
             title = 'Combined Risk Score';
-            legendDesc = 'Combined environmental justice and air quality risk. Only showing counties with both datasets.';
             break;
     }
-    
-    document.getElementById('legendDesc').textContent = legendDesc;
     
     await createScatterMap(dataToUse, values, colorscale, title, mapType);
 }
