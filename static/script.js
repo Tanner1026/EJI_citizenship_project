@@ -96,9 +96,15 @@ async function updateVisualization() {
         case 'aqi':
             dataToUse = filteredData;
             values = dataToUse.map(d => parseFloat(d['Median AQI']));
-            colorscale = 'Blues';
+            colorscale = [
+                [0, 'rgb(144, 238, 144)'],      // 0 AQI - Light Green (Good)
+                [0.25, 'rgb(255, 255, 153)'],   // ~25 AQI - Light Yellow (Good)
+                [0.5, 'rgb(255, 204, 102)'],    // ~50 AQI - Light Orange (Moderate)
+                [0.75, 'rgb(255, 128, 0)'],     // ~75 AQI - Orange (Moderate-Unhealthy)
+                [1, 'rgb(204, 0, 0)']           // 100+ AQI - Dark Red (Unhealthy)
+            ];
             title = 'Air Quality Index (Median AQI)';
-            legendDesc = 'Higher values indicate worse air quality. Only showing counties with AQI monitoring stations.';
+            legendDesc = 'Red = Worse air quality (higher AQI). Green = Better air quality (lower AQI). Only showing counties with AQI monitoring stations.';
             break;
         case 'combined':
             dataToUse = filteredData;
